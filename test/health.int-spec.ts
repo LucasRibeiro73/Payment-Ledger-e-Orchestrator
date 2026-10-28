@@ -66,9 +66,10 @@ describe('health probes', () => {
 
     const response = await request(app.getHttpServer()).get('/health/ready').expect(503);
 
+    expect(response.headers['content-type']).toContain('application/problem+json');
     expect(response.body).toMatchObject({
-      status: 'error',
-      error: { database: { status: 'down' } },
+      status: 503,
+      details: { database: { status: 'down' }, redis: { status: 'up' } },
     });
   });
 });
