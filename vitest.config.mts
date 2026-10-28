@@ -1,10 +1,6 @@
-import swc from 'unplugin-swc';
 import { defineConfig } from 'vitest/config';
 
-// SWC replaces Vite's default transformer because it is the one that emits
-// decorator metadata, which Nest needs to resolve constructor injection.
 export default defineConfig({
-  plugins: [swc.vite({ module: { type: 'es6' } })],
   test: {
     globals: false,
     restoreMocks: true,

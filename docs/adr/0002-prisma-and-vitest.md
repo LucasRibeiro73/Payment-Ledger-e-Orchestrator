@@ -18,7 +18,7 @@ pure domain rules quickly and run integration suites against a real Postgres.
   imports Prisma types.
 - Prisma is pinned to the latest stable 7.x. The `latest` npm tag pointed to
   an 8.0 release candidate when this was written.
-- **Vitest** with `unplugin-swc`. Unit tests live next to the code
+- **Vitest**, using Vite's default transformer. Unit tests live next to the code
   (`*.spec.ts`); integration tests (`*.int-spec.ts`) run in a separate Vitest
   project against Testcontainers.
 - **TypeScript 6.0**. TypeScript 7 (the native compiler) is out, but
@@ -35,7 +35,10 @@ pure domain rules quickly and run integration suites against a real Postgres.
 
 ## Consequences
 
-- Vite's default transformer drops decorator metadata, so SWC is required for
-  Nest dependency injection in tests. That is one more plugin to maintain.
+- Nest resolves constructor injection from decorator metadata. Older Vite
+  transformers dropped it and needed an SWC plugin; Vite 8's oxc transformer
+  emits it from `emitDecoratorMetadata` in tsconfig.json, so no plugin is
+  needed. A Vite upgrade that changes this would break DI only in tests,
+  which the DI-heavy integration suite would catch immediately.
 - Raw SQL in migrations is invisible to Prisma's schema diffing; integration
   tests are what prove the triggers and constraints work.
