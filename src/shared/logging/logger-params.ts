@@ -16,6 +16,8 @@ export function buildLoggerParams(config: AppConfig): Params {
       level: config.logLevel,
       redact: { paths: REDACTED_PATHS, censor: '[redacted]' },
       customAttributeKeys: { reqId: 'requestId' },
+      // Probes hit every few seconds; logging them would drown real traffic.
+      autoLogging: { ignore: (req) => req.url?.startsWith('/health/') ?? false },
       genReqId: (req, res) => {
         const requestId = resolveRequestId(req.headers[REQUEST_ID_HEADER]);
         res.setHeader(REQUEST_ID_HEADER, requestId);
