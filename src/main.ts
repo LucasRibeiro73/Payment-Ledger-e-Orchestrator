@@ -1,11 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
+import { InvalidConfigError, loadConfig } from './config/app-config';
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule);
+  const config = loadConfig(process.env);
+  const app = await NestFactory.create(AppModule.forRoot(config));
   app.enableShutdownHooks();
-  await app.listen(3000);
+  await app.listen(config.port);
 }
 
-void bootstrap();
+bootstrap().catch((error: unknown) => {
+  // The logger is not available yet when configuration fails, so the
+  // reason goes straight to stderr before exiting with a failure code.
+  if (error instanceof InvalidConfigError) {
+    process.stderr.write(`${error.message}\n`);
+    process.exit(1);
+  }
+  throw error;
+});
