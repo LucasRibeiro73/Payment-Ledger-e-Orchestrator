@@ -13,7 +13,11 @@
     "build": "nest build",
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src *.mjs",
+    "lint:fix": "eslint src *.mjs --fix",
+    "format": "prettier --write . --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude",
+    "format:check": "prettier --check . --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude"
   },
   "dependencies": {
     "@nestjs/common": "12.3.2",
@@ -23,10 +27,16 @@
     "rxjs": "7.8.2"
   },
   "devDependencies": {
+    "@eslint/js": "10.0.1",
     "@nestjs/cli": "12.0.11",
     "@nestjs/schematics": "12.0.11",
     "@types/express": "5.0.6",
     "@types/node": "24.19.2",
-    "typescript": "6.0.3"
+    "eslint": "10.13.0",
+    "eslint-config-prettier": "10.1.8",
+    "globals": "17.13.0",
+    "prettier": "3.9.10",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1"
   }
 }
