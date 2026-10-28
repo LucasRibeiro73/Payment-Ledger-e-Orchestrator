@@ -17,7 +17,8 @@
     "lint": "eslint src *.mjs",
     "lint:fix": "eslint src *.mjs --fix",
     "format": "prettier --write . --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude",
-    "format:check": "prettier --check . --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude"
+    "format:check": "prettier --check . --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude",
+    "prepare": "husky"
   },
   "dependencies": {
     "@nestjs/common": "12.3.2",
@@ -27,6 +28,8 @@
     "rxjs": "7.8.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
     "@eslint/js": "10.0.1",
     "@nestjs/cli": "12.0.11",
     "@nestjs/schematics": "12.0.11",
@@ -35,6 +38,8 @@
     "eslint": "10.13.0",
     "eslint-config-prettier": "10.1.8",
     "globals": "17.13.0",
+    "husky": "9.1.7",
+    "lint-staged": "17.6.0",
     "prettier": "3.9.10",
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.1"
