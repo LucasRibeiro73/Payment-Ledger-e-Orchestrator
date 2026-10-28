@@ -1,7 +1,11 @@
 generator client {
-  provider     = "prisma-client"
-  output       = "../src/generated/prisma"
-  moduleFormat = "cjs"
+  provider               = "prisma-client"
+  output                 = "../src/generated/prisma"
+  moduleFormat           = "cjs"
+  // Explicit so generation does not depend on tsconfig.json being present,
+  // which it is not when the Docker build runs `pnpm install`.
+  generatedFileExtension = "ts"
+  importFileExtension    = "js"
 }
 
 datasource db {
