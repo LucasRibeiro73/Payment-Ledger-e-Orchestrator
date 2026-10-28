@@ -29,7 +29,7 @@ describe('health probes', () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule.forRoot(config)],
     }).compile();
-    app = moduleRef.createNestApplication();
+    app = moduleRef.createNestApplication({ logger: false });
     await app.init();
   });
 
